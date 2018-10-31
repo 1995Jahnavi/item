@@ -14,8 +14,10 @@
     </ul>
 </nav>
 <div class="items view large-9 medium-8 columns content">
+
     <h3><?= h($item->id) ?></h3>
     <table class="vertical-table">
+    
         <tr>
             <th scope="row"><?= __('Item Name') ?></th>
             <td><?= h($item->item_name) ?></td>
@@ -26,19 +28,23 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Purchase Unit') ?></th>
-            <td><?= $this->Number->format($item->purchase_unit) ?></td>
+            <td><?= $item->pu_name ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Sell Unit') ?></th>
-            <td><?= $this->Number->format($item->sell_unit) ?></td>
+             <td><?= $item->su_name ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Usage Unit') ?></th>
-            <td><?= $this->Number->format($item->usage_unit) ?></td>
+            <td><?= $item->us_name ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Item Group Id') ?></th>
-            <td><?= $this->Number->format($item->item_group_id) ?></td>
+              <td><?= $item->ig_name ?></td>
         </tr>
+      
     </table>
 </div>
+
+
+

@@ -29,10 +29,6 @@ class Warehouse extends Entity
      */
     protected $_accessible = [
         'name' => true,
-        'quantity' => true,
-        'unit_id' => true,
-        'item_id' => true,
-        'unit' => true,
-        'item' => true
+        
     ];
 }

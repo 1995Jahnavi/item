@@ -31,6 +31,7 @@
         <tr>
             <th scope="row"><?= __('From Warehouse Id') ?></th>
             <td><?= $this->Number->format($stockMovement->from_warehouse_id) ?></td>
+            
         </tr>
     </table>
     <div class="related">

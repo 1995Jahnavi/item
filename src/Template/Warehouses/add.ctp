@@ -15,15 +15,15 @@
     </ul>
 </nav>
 <div class="warehouses form large-9 medium-8 columns content">
-    <?= $this->Form->create($warehouse) ?>
+    <?= $this->Form->create('warehouse') ?>
     <fieldset>
         <legend><?= __('Add Warehouse') ?></legend>
         <?php
             echo $this->Form->control('name');
-            echo $this->Form->control('quantity');
+           /** echo $this->Form->control('quantity');
             echo $this->Form->control('unit_id', ['options' => $units]);
             echo $this->Form->control('item_id', ['options' => $items]);
-        ?>
+       */ ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

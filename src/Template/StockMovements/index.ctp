@@ -23,6 +23,8 @@
                 <th scope="col"><?= $this->Paginator->sort('from_warehouse_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('to_warehouse_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('posting_date') ?></th>
+                
             </tr>
         </thead>
         <tbody>
@@ -35,11 +37,14 @@
                    <td><?= $stockMovement->has('warehouse') ? $this->Html->link($stockMovement->fw_name, ['controller' => 'Warehouses', 'action' => 'view', $stockMovement->warehouse->id]) : '' ?></td>
                  
                   <td><?= $stockMovement->has('warehouse') ? $this->Html->link($stockMovement->tw_name, ['controller' => 'Warehouses', 'action' => 'view', $stockMovement->warehouse->id]) : '' ?></td>
+                 
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $stockMovement->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $stockMovement->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $stockMovement->id], ['confirm' => __('Are you sure you want to delete # {0}?', $stockMovement->id)]) ?>
                 </td>
+                 <td><?= $stockMovement->posting_date->i18nFormat('YYY-MM-dd')?></td>
+                 
             </tr>
             <?php endforeach; ?>
         </tbody>

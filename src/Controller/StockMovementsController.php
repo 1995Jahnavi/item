@@ -26,6 +26,7 @@ class StockMovementsController extends AppController
         ];
         $stockMovements = $this->paginate($this->StockMovements);
         
+        
    foreach($stockMovements as $stockMovement){
 		$warehouses = TableRegistry::get('Warehouses');
 		
@@ -41,9 +42,7 @@ class StockMovementsController extends AppController
 		
 		}
 		
-
-
-        $this->set(compact('stockMovements'));
+         $this->set(compact('stockMovements'));
     }
 
     /**
@@ -58,6 +57,7 @@ class StockMovementsController extends AppController
         $stockMovement = $this->StockMovements->get($id, [
             'contain' => ['Warehouses', 'StockMovementItems']
         ]);
+        
 
         $this->set('stockMovement', $stockMovement);
     }

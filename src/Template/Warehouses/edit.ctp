@@ -26,9 +26,9 @@
         <legend><?= __('Edit Warehouse') ?></legend>
         <?php
             echo $this->Form->control('name');
-            echo $this->Form->control('quantity');
+           /** echo $this->Form->control('quantity');
             echo $this->Form->control('unit_id', ['options' => $units]);
-            echo $this->Form->control('item_id', ['options' => $items]);
+            echo $this->Form->control('item_id', ['options' => $items]); */
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Item $item
@@ -16,7 +16,7 @@
         <legend><?= __('Add Item') ?></legend>
         <?php
             echo $this->Form->control('item_name');
-	    echo $this->Form->input('purchase_unit',array('type'=>'select','options'=>$units));
+	        echo $this->Form->input('purchase_unit',array('type'=>'select','options'=>$units));
             echo $this->Form->control('sell_unit_qty');
             echo $this->Form->control('sell_unit',array('type'=>'select','options'=>$units));
             echo $this->Form->control('usage_unit_qty');

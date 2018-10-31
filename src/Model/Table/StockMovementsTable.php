@@ -60,6 +60,7 @@ class StockMovementsTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
+        /**debug($this->Warehouses->save($warehouse));die();*/
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');

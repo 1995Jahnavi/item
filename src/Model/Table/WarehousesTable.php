@@ -37,15 +37,6 @@ class WarehousesTable extends Table
         $this->setTable('warehouses');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
-        $this->belongsTo('Units', [
-            'foreignKey' => 'unit_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('Items', [
-            'foreignKey' => 'item_id',
-            'joinType' => 'INNER'
-        ]);
     }
 
     /**
@@ -66,10 +57,6 @@ class WarehousesTable extends Table
             ->requirePresence('name', 'create')
             ->notEmpty('name');
 
-        $validator
-            ->integer('quantity')
-            ->requirePresence('quantity', 'create')
-            ->notEmpty('quantity');
 
         return $validator;
     }
@@ -83,8 +70,7 @@ class WarehousesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['unit_id'], 'Units'));
-        $rules->add($rules->existsIn(['item_id'], 'Items'));
+       
 
         return $rules;
     }

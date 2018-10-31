@@ -53,13 +53,15 @@ class ItemsController extends AppController
      */
     public function view($id = null)
     {
-        $item = $this->Items->get($id, [
+       $item = $this->Items->get($id, [
             'contain' => []
         ]);
+      //  debug($item);die();
          $items = $this->paginate($this->Items);
+         // $units = $this->paginate($this->Items);
 
-	foreach($items as $item){
-		$units = TableRegistry::get('Units');
+	
+	    $units = TableRegistry::get('Units');
 		$itemgroups = TableRegistry::get('ItemGroups');
 
 		$pu = $units->get($item->purchase_unit);
@@ -73,10 +75,10 @@ class ItemsController extends AppController
 		
                 $ig = $itemgroups->get($item->item_group_id);
 		$item->ig_name = $ig->name;
-	}
-        
-
+	
+	
         $this->set('item', $item);
+    
     }
 
     /**
@@ -96,7 +98,7 @@ class ItemsController extends AppController
             }
             $this->Flash->error(__('The item could not be saved. Please, try again.'));
         }
-            else if($this->request->is('get')){
+        else if($this->request->is('get')){
 	    $this->Units = TableRegistry::get('Units');
 	    $this->set('units',$this->Units->find('list'));		
 	    $this->Units = TableRegistry::get('ItemGroups');
@@ -126,6 +128,12 @@ class ItemsController extends AppController
             }
             $this->Flash->error(__('The item could not be saved. Please, try again.'));
         }
+        else if($this->request->is('get')){
+	    $this->Units = TableRegistry::get('Units');
+	    $this->set('units',$this->Units->find('list'));		
+	    $this->Units = TableRegistry::get('ItemGroups');
+	    $this->set('itemgroups',$this->Units->find('list'));
+	} 
         $this->set(compact('item'));
     }
 

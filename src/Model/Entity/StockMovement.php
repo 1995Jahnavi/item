@@ -28,6 +28,7 @@ class StockMovement extends Entity
     protected $_accessible = [
         'from_warehouse_id' => true,
         'to_warehouse_id' => true,
+        'posting_date' =>true,
         'warehouse' => true,
         'stock_movement_items' => true
     ];

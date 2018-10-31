@@ -27,6 +27,7 @@
         <?php
             echo $this->Form->control('from_warehouse_id');
             echo $this->Form->control('to_warehouse_id', ['options' => $warehouses]);
+            echo $this->Form->control('posting_date');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

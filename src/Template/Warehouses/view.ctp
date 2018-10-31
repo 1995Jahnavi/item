@@ -24,21 +24,11 @@
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($warehouse->name) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Unit') ?></th>
-            <td><?= $warehouse->has('unit') ? $this->Html->link($warehouse->unit->unit_name, ['controller' => 'Units', 'action' => 'view', $warehouse->unit->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Item') ?></th>
-            <td><?= $warehouse->has('item') ? $this->Html->link($warehouse->item->item_name, ['controller' => 'Items', 'action' => 'view', $warehouse->item->id]) : '' ?></td>
-        </tr>
+       
         <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($warehouse->id) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Quantity') ?></th>
-            <td><?= $this->Number->format($warehouse->quantity) ?></td>
-        </tr>
+        
     </table>
 </div>

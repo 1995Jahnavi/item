@@ -22,10 +22,11 @@
         <legend><?= __('Edit Item') ?></legend>
         <?php
             echo $this->Form->control('item_name');
-            echo $this->Form->control('purchase_unit');
-            echo $this->Form->control('sell_unit');
-            echo $this->Form->control('usage_unit');
-            echo $this->Form->control('item_group_id');
+            echo $this->Form->input('purchase_unit',array('type'=>'select','options'=>$units));
+            echo $this->Form->control('sell_unit',array('type'=>'select','options'=>$units));
+            echo $this->Form->control('usage_unit',array('type'=>'select','options'=>$units));
+            echo $this->Form->control('item_group_id',array('type'=>'select','options'=>$itemgroups));
+           
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

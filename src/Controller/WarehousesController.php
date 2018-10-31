@@ -37,9 +37,7 @@ class WarehousesController extends AppController
      */
     public function view($id = null)
     {
-        $warehouse = $this->Warehouses->get($id, [
-            'contain' => ['Units', 'Items']
-        ]);
+        $warehouse = $this->Warehouses->get($id);
 
         $this->set('warehouse', $warehouse);
     }
@@ -53,7 +51,9 @@ class WarehousesController extends AppController
     {
         $warehouse = $this->Warehouses->newEntity();
         if ($this->request->is('post')) {
+            
             $warehouse = $this->Warehouses->patchEntity($warehouse, $this->request->getData());
+             
             if ($this->Warehouses->save($warehouse)) {
                 $this->Flash->success(__('The warehouse has been saved.'));
 
@@ -88,9 +88,9 @@ class WarehousesController extends AppController
             }
             $this->Flash->error(__('The warehouse could not be saved. Please, try again.'));
         }
-        $units = $this->Warehouses->Units->find('list', ['limit' => 200]);
-        $items = $this->Warehouses->Items->find('list', ['limit' => 200]);
-        $this->set(compact('warehouse', 'units', 'items'));
+        /**$units = $this->Warehouses->Units->find('list', ['limit' => 200]);
+        $items = $this->Warehouses->Items->find('list', ['limit' => 200]); */
+        $this->set(compact('warehouse'));
     }
 
     /**
