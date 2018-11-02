@@ -44,9 +44,9 @@
             <tr>
                 <td><?= h($items->id) ?></td>
                 <td><?= h($items->item_name) ?></td>
-                <td><?= h($items->purchase_unit) ?></td>
-                <td><?= h($items->sell_unit) ?></td>
-                <td><?= h($items->usage_unit) ?></td>
+                <td><?= h($items->purchase_unit_name) ?></td>
+                <td><?= h($items->sell_unit_name) ?></td>
+                <td><?= h($items->usage_unit_name) ?></td>
                 <td><?= h($items->item_group_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Items', 'action' => 'view', $items->id]) ?>

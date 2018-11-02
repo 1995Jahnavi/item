@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * ItemGroups Controller
@@ -37,7 +38,18 @@ class ItemGroupsController extends AppController
         $itemGroup = $this->ItemGroups->get($id, [
             'contain' => ['Items']
         ]);
-
+        foreach($itemGroup->items as $item){
+            
+        $units = TableRegistry::get('Units');       
+        $item->purchase_unit_name=$units->get($item->purchase_unit)->unit_name;
+        
+        $units = TableRegistry::get('Units');
+        $item->sell_unit_name=$units->get($item->sell_unit)->unit_name;
+        
+        $units = TableRegistry::get('Units');
+        $item->usage_unit_name=$units->get($item->usage_unit)->unit_name;
+        }
+     
         $this->set('itemGroup', $itemGroup);
     }
 
@@ -57,7 +69,8 @@ class ItemGroupsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The item group could not be saved. Please, try again.'));
-        }
+        } else if($this->request->is('get')){
+         }
         $this->set(compact('itemGroup'));
     }
 

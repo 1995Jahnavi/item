@@ -11,7 +11,7 @@
     </ul>
 </nav>
 <div class="items form large-9 medium-8 columns content">
-    <?= $this->Form->create($item) ?>
+    <?= $this->Form->create($item,   array('id' => 'myForm')) ?>
     <fieldset>
         <legend><?= __('Add Item') ?></legend>
         <?php
@@ -24,13 +24,31 @@
             echo $this->Form->control('item_group_id',array('type'=>'select','options'=>$itemgroups));
 
         ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+       </fieldset>
+      <?php ?>
+      <input id="btnSubmit" name="btnSubmit" type="button" value="Submit" onclick="validateForm();" />
+    
+  
 </div>
 
-
-
-
-
- 
+<script>
+function validateForm() {
+   
+    var item_name = document.getElementById('item-name');
+    var sell_unit_qty = document.getElementById('sell-unit-qty');
+    var usage_unit_qty = document.getElementById('usage-unit-qty');
+    
+    if(sell_unit_qty.value ==""){
+     window.alert('enter selling unit quantity');
+     sell_unit_qty.focus(); 
+     return false;
+    }  
+     if(usage_unit_qty.value ==""){
+     window.alert('enter usage unit quantity');
+     usage_unit_qty.focus(); 
+     return false;
+    }  
+    
+    document.getElementById("myForm").submit();    
+}
+</script>

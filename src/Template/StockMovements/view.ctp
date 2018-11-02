@@ -29,8 +29,8 @@
             <td><?= $this->Number->format($stockMovement->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('From Warehouse Id') ?></th>
-            <td><?= $this->Number->format($stockMovement->from_warehouse_id) ?></td>
+            <th scope="row"><?= __('From Warehouse') ?></th>
+            <td><?= $stockMovement->fw_name ?></td>
             
         </tr>
     </table>

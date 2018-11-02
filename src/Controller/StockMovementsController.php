@@ -57,7 +57,13 @@ class StockMovementsController extends AppController
         $stockMovement = $this->StockMovements->get($id, [
             'contain' => ['Warehouses', 'StockMovementItems']
         ]);
+      
+            $warehouses = TableRegistry::get('Warehouses');
+            
+            $fw = $warehouses->get($stockMovement->from_warehouse_id);
+            $stockMovement->fw_name = $fw->name;
         
+           
 
         $this->set('stockMovement', $stockMovement);
     }

@@ -23,7 +23,9 @@
         <?php
             echo $this->Form->control('item_name');
             echo $this->Form->input('purchase_unit',array('type'=>'select','options'=>$units));
+             echo $this->Form->control('sell_unit_qty');
             echo $this->Form->control('sell_unit',array('type'=>'select','options'=>$units));
+             echo $this->Form->control('usage_unit_qty');
             echo $this->Form->control('usage_unit',array('type'=>'select','options'=>$units));
             echo $this->Form->control('item_group_id',array('type'=>'select','options'=>$itemgroups));
            

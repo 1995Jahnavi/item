@@ -26,9 +26,9 @@
                 <td><?= $this->Number->format($unit->id) ?></td>
                 <td><?= h($unit->unit_name) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $unit->unit_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $unit->unit_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $unit->unit_id], ['confirm' => __('Are you sure you want to delete # {0}?', $unit->unit_id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $unit->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $unit->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $unit->id], ['confirm' => __('Are you sure you want to delete # {0}?', $unit->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

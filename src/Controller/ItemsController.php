@@ -3,8 +3,9 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+/**use Cake\ORM\RulesChecker;
+ *use Cake\ORM\Rule\IsUnique;
 
-/**
  * Items Controller
  *
  * @property \App\Model\Table\ItemsTable $Items
@@ -22,7 +23,7 @@ class ItemsController extends AppController
     public function index()
     {
         $items = $this->paginate($this->Items);
-
+ 
 	foreach($items as $item){
 		$units = TableRegistry::get('Units');
 		$itemgroups = TableRegistry::get('ItemGroups');
@@ -88,6 +89,7 @@ class ItemsController extends AppController
      */
     public function add()
     {
+    	
         $item = $this->Items->newEntity();
         if ($this->request->is('post')) {
             $item = $this->Items->patchEntity($item, $this->request->getData());
@@ -96,14 +98,21 @@ class ItemsController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The item could not be saved. Please, try again.'));
-        }
-        else if($this->request->is('get')){
-	    $this->Units = TableRegistry::get('Units');
-	    $this->set('units',$this->Units->find('list'));		
-	    $this->Units = TableRegistry::get('ItemGroups');
-	    $this->set('itemgroups',$this->Units->find('list'));
-	} 
+            //debug('units');die();
+            
+            $this->Units = TableRegistry::get('Units');
+	        $this->set('units',$this->Units->find('list'));		
+	        $this->Units = TableRegistry::get('ItemGroups');
+	        $this->set('itemgroups',$this->Units->find('list'));  
+	        $this->Flash->error(__('The item could not be saved. Please, try again.'));
+        }  else if($this->request->is('get')){
+//        	debug('get');die();
+              $this->Units = TableRegistry::get('Units');
+	          $this->set('units',$this->Units->find('list'));		
+	          $this->Units = TableRegistry::get('ItemGroups');
+              $this->set('itemgroups',$this->Units->find('list'));
+	    } 
+	
         $this->set(compact('item'));
     }
 
