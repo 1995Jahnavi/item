@@ -30,6 +30,15 @@
             echo $this->Form->control('posting_date');
         ?>
     </fieldset>
+    <table>
+	<tr>
+	<td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items)); ?></td>
+	<td><?php echo $this->Form->control('quantity');; ?></td>		
+	<td><?php echo $this->Form->control('unit_id',array('type'=>'select','options'=>$units)); ?></td>
+	
+	</tr>
+	</table>
+	
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>

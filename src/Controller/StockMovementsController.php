@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -62,12 +63,11 @@ class StockMovementsController extends AppController
             
             $fw = $warehouses->get($stockMovement->from_warehouse_id);
             $stockMovement->fw_name = $fw->name;
-        
-           
-
-        $this->set('stockMovement', $stockMovement);
+            
+          
+           $this->set('stockMovement', $stockMovement);
+    
     }
-
     /**
      * Add method
      *
@@ -77,6 +77,7 @@ class StockMovementsController extends AppController
     {
 	//debug($this->request->getData());die();	  
         $stockMovement = $this->StockMovements->newEntity();
+        
         if ($this->request->is('post')) {
             $stockMovement = $this->StockMovements->patchEntity($stockMovement, $this->request->getData());
             if ($this->StockMovements->save($stockMovement)) {
@@ -127,6 +128,15 @@ class StockMovementsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The stock movement could not be saved. Please, try again.'));
+        }else if($this->request->is('get')){
+            $units = TableRegistry::get('Units');
+            $this->set('units',$units->find('list'));
+            
+            $items = TableRegistry::get('Items');
+            $this->set('items',$items->find('list'));
+            foreach($items as $item){
+                $item->units = $units->find('list', ['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
+            }
         }
         $warehouses = $this->StockMovements->Warehouses->find('list', ['limit' => 200]);
         $this->set(compact('stockMovement', 'warehouses'));
@@ -151,4 +161,6 @@ class StockMovementsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+  
 }

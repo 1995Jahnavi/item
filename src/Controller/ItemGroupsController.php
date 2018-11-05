@@ -46,8 +46,12 @@ class ItemGroupsController extends AppController
         $units = TableRegistry::get('Units');
         $item->sell_unit_name=$units->get($item->sell_unit)->unit_name;
         
-        $units = TableRegistry::get('Units');
-        $item->usage_unit_name=$units->get($item->usage_unit)->unit_name;
+       // foreach ($stockMovement->stock_movement_items as $stockMovementItems){
+            //$items = TableRegistry::get('Items');
+            // $stockMovementItems->item_name=$items->get($stockMovementItems->id)->item_name;
+            // }
+         $item_groups = TableRegistry::get('ItemGroups');
+         $item->item_group_name=$item_groups->get($item->item_group_id)->name;
         }
      
         $this->set('itemGroup', $itemGroup);
@@ -70,6 +74,7 @@ class ItemGroupsController extends AppController
             }
             $this->Flash->error(__('The item group could not be saved. Please, try again.'));
         } else if($this->request->is('get')){
+        	
          }
         $this->set(compact('itemGroup'));
     }
