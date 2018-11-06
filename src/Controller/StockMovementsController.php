@@ -145,4 +145,23 @@ class StockMovementsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+public function getunits()
+  {
+      
+      $this->autoRender = false ;      
+      
+      $itemid = $this->request->query();
+    $items = TableRegistry::get('Items');
+    $item =$items->get($itemid['itemid']);
+    $units = TableRegistry::get('Units');
+    $units=$units->find('list',['id IN '=>[$item->purchase_unit,$item->sell_unit,$item->usage_unit]]);
+     
+    //this gives template error, google "cakephp function response without template"
+//     $this->set(compact('units'));
+    
+    //return json repsonse, something like json.encode();
+    
+    return  $units;
+ }
+
 }
