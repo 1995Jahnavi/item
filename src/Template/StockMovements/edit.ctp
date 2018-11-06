@@ -32,7 +32,7 @@
     </fieldset>
     <table>
 	<tr>
-	<td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items)); ?></td>
+	<td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items,'onchange'=>'change()')); ?></td>
 	<td><?php echo $this->Form->control('quantity');; ?></td>		
 	<td><?php echo $this->Form->control('unit_id',array('type'=>'select','options'=>$units)); ?></td>
 	
@@ -42,3 +42,24 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+
+      function change(){
+            var item_select_box = document.getElementById("item-id");
+            var unit_select_box=$('#unit-id');                       
+          	unit_select_box.empty();
+            var myobject = {
+                ValueA : 'carton',
+                ValueB : 'box',
+                ValueC : 'bottle'
+            };
+            
+            for(index in myobject) {              
+             $("#unit-id").append("<option value='" +index+ "'>" +myobject[index]+ "</option>");             
+             
+            }
+        }
+  
+  </script>

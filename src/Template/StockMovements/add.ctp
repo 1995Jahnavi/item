@@ -28,7 +28,7 @@
 
 	<table>
 	<tr>
-	<td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items,'onchange'=>'selectitem()')); ?></td>
+	<td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items,'onchange'=>'change()')); ?></td>
 	<td><?php echo $this->Form->control('quantity');; ?></td>		
 	<td><?php echo $this->Form->control('unit_id',array('type'=>'select','options'=>$units)); ?></td>
 	
@@ -41,33 +41,21 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
-function selectitem() {
 
-    console.log('adsf');
-    var item_select_box=document.getElementById('item-id');
-    var unit_select_box=document.getElementById('unit-id');
-    //var optionsAsString = "";
-   
-   var itemArray=['carton','box','bottle'];
-   var item='';
-   for(var i = 0; i < itemArray.length; i++) {
-    item += "<option value='" + itemArray[i] + "'>" + itemArray[i] + "</option>";
-  }
+      function change(){
+            var item_select_box = document.getElementById("item-id");
+            var unit_select_box=$('#unit-id');                       
+          	unit_select_box.empty();
+            var myobject = {
+                ValueA : 'carton',
+                ValueB : 'box',
+                ValueC : 'bottle'
+            };
+            
+            for(index in myobject) {              
+             $("#unit-id").append("<option value='" +index+ "'>" +myobject[index]+ "</option>");             
+             
+            }
+        }
   
-  console.log(unit_select_box);
-   //unit_select_box.options=item;
-   
-   //var $inputProduct = $("select[name='inputProduct']")
-
-$(itemArray).each(function(i, v){ 
-    console.log(itemArray);
- 
-    unit_select_box.append($("<option>", { value: i, html: v }));
-});
-
-  //$("# unit_select_box").append('<option value=' +itemArray[i] + '</option>');
-    
-    
-    
-    //document.getElementById("myForm").submit();
-</script>
+  </script>

@@ -23,6 +23,7 @@
         <tr>
             <th scope="row"><?= __('Warehouse') ?></th>
             <td><?= $stockMovement->has('warehouse') ? $this->Html->link($stockMovement->warehouse->name, ['controller' => 'Warehouses', 'action' => 'view', $stockMovement->warehouse->id]) : '' ?></td>
+          
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>

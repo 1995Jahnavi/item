@@ -49,6 +49,7 @@ class StockMovementsTable extends Table
         ]);
         $this->hasMany('StockMovementItems', [
             'foreignKey' => 'stock_movement_id'
+            
         ]);
     }
 

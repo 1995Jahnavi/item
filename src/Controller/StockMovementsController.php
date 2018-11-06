@@ -64,6 +64,8 @@ class StockMovementsController extends AppController
             $fw = $warehouses->get($stockMovement->from_warehouse_id);
             $stockMovement->fw_name = $fw->name;
             
+           // $units = $this->Units->find('list');
+            //$this->set(compact('units'));
           
            $this->set('stockMovement', $stockMovement);
     
@@ -101,7 +103,7 @@ class StockMovementsController extends AppController
 		$items = TableRegistry::get('Items');
 		$this->set('items',$items->find('list'));
 		foreach($items as $item){
-		    $item->units = $units->find('list', ['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
+		   // $item->units = $units->find('list', ['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
 		}	
 	}
         $warehouses = $this->StockMovements->Warehouses->find('list', ['limit' => 200]);
@@ -163,4 +165,15 @@ class StockMovementsController extends AppController
     }
 
   
+
+    public function get_item($id=null)
+ {
+     $items = TableRegistry::get('Items');
+     $units = TableRegistry::get('Units');
+     $item = $items->get($id);
+     $units = $units->find('list', ['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
+     
+       return $units;  
+    }
+ 
 }
