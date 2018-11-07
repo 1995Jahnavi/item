@@ -42,20 +42,44 @@
 
 <script>
 
+
       function change(){
             var item_select_box = document.getElementById("item-id");
             var unit_select_box=$('#unit-id');                       
           	unit_select_box.empty();
-            var myobject = {
-                ValueA : 'carton',
-                ValueB : 'box',
-                ValueC : 'bottle'
-            };
-            
-            for(index in myobject) {              
-             $("#unit-id").append("<option value='" +index+ "'>" +myobject[index]+ "</option>");             
+          
+	
+	$.ajax({
+		type: 'get',
+		url: '/stock-movements/getunits',
+		  data: { 
+		    itemid: item_select_box.value
+		  },
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		},
+		success: function(response) {
+			if (response.error) {
+				alert(response.error);
+				console.log(response.error);
+			}
+			if (response.content) {
+			
+		     for(index in response.content) {              
+              $("#unit-id").append("<option value='" +index+ "'>" +response.content[index]+ "</option>");             
              
             }
+			}
+		},
+		error: function(e) {
+			//alert("An error occurred: " + e.responseText.message);
+			console.log(e);
+		}
+	});	
+
+          	
+        
+          
         }
   
   </script>

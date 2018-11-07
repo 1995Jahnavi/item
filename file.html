@@ -31,3 +31,62 @@
 </body>
 </html>
 
+
+
+unit_select_box.empty();
+	
+	$.ajax({
+		type: 'get',
+		url: '/stock-movements/getunits',
+		  data: { 
+		    itemid: item_select_box.value
+		  },
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		},
+		success: function(response) {
+			if (response.error) {
+				alert(response.error);
+				console.log(response.error);
+			}
+			if (response.content) {
+				$('#target').html(response.content);
+			}
+		},
+		error: function(e) {
+			//alert("An error occurred: " + e.responseText.message);
+			console.log(e);
+		}
+	});	
+
+
+
+
+return $this->response->withType("application/json")->withStringBody(json_encode($result));
+
+
+
+
+
+ public function getunits()
+  {
+      
+      $this->autoRender = false ;      
+      
+      $itemid = $this->request->query();
+    $items = TableRegistry::get('Items');
+    $item =$items->get($itemid['itemid']);
+    $units = TableRegistry::get('Units');
+    $units=$units->find('list',['id IN '=>[$item->purchase_unit,$item->sell_unit,$item->usage_unit]]);
+     
+    //this gives template error, google "cakephp function response without template"
+//     $this->set(compact('units'));
+    
+
+/// $this->set('_serialize', ['location']);
+
+
+    //return json repsonse, something like json.encode();
+    
+    return  $units;
+ }
