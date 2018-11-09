@@ -40,25 +40,21 @@
         <?php if (!empty($stockMovement->stock_movement_items)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Item Id') ?></th>
+                <th scope="col"><?= __('Item') ?></th>
                 <th scope="col"><?= __('Stock Movement Id') ?></th>
                 <th scope="col"><?= __('Quantity') ?></th>
-                <th scope="col"><?= __('Unit Id') ?></th>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= __('Unit') ?></th>
+                
+               
             </tr>
             <?php foreach ($stockMovement->stock_movement_items as $stockMovementItems): ?>
             <tr>
-                <td><?= h($stockMovementItems->item_id) ?></td>
+                <td><?= h($stockMovementItems->item_name) ?></td>
                 <td><?= h($stockMovementItems->stock_movement_id) ?></td>
                 <td><?= h($stockMovementItems->quantity) ?></td>
-                <td><?= h($stockMovementItems->unit_id) ?></td>
-                <td><?= h($stockMovementItems->id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'StockMovementItems', 'action' => 'view', $stockMovementItems->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'StockMovementItems', 'action' => 'edit', $stockMovementItems->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'StockMovementItems', 'action' => 'delete', $stockMovementItems->id], ['confirm' => __('Are you sure you want to delete # {0}?', $stockMovementItems->id)]) ?>
-                </td>
+                <td><?= h($stockMovementItems->unit_name) ?></td>
+               
+               
             </tr>
             <?php endforeach; ?>
         </table>
