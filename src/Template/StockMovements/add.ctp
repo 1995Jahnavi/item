@@ -55,26 +55,24 @@
 		  data: { 
 		    itemid: item_select_box.value
 		  },
+		   dataType: 'json',
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		},
-		success: function(response) {
+		success: function(response) 
+			 {
 			if (response.error) {
 				alert(response.error);
 				console.log(response.error);
 			}
-			if (response.content) {
-			
-		     for(index in response.content) {              
-              $("#unit-id").append("<option value='" +index+ "'>" +response.content[index]+ "</option>");             
-             
-            }
+ 			if (response) {			
+				for (var k in response) {
+	              $("#unit-id").append("<option value='" +k+ "'>" +response[k]+ "</option>");             
+	             
+	            }
 			}
-		},
-		error: function(e) {
-			//alert("An error occurred: " + e.responseText.message);
-			console.log(e);
-		}
+			}
+			
 	});	
 
           	

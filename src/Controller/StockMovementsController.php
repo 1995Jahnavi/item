@@ -103,7 +103,7 @@ class StockMovementsController extends AppController
 		$items = TableRegistry::get('Items');
 		$this->set('items',$items->find('list'));
 		foreach($items as $item){
-		   // $item->units = $units->find('list', ['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
+		    $item->units = $units->find('list', ['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
 		}	
 	}
         $warehouses = $this->StockMovements->Warehouses->find('list', ['limit' => 200]);
@@ -130,32 +130,27 @@ class StockMovementsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The stock movement could not be saved. Please, try again.'));
-        }else if($this->request->is('get')){
-            $units = TableRegistry::get('Units');
-            $this->set('units',$units->find('list'));
-            
+        }
+        else if($this->request->is('get')){
+            $units_table = TableRegistry::get('Units');
+            $this->set('units',$units_table->find('list'));
             
             $items_table = TableRegistry::get('Items');
-            $items=$items_table->find('all');
-            $itemnames=$items_table->find('list');
-//             foreach($itemnames as $item){
-//                 debug($item);
-//             }
-//             die();
-            $item_options=array();
-//             $this->set('items',$itemnames);
+            
+           // $items = $items_table->find('all');
+            
+           // $this->set('items',$items);
            
-           foreach($items as $item){
-               //debug($item);die();
-               array_push($item_options, $item->item_name);
-               $item->units = $units->find('list', ['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
-            // debug( $item->units);die();
+           $this->set('items',$items_table->find('list')); 
+            foreach($items_table as $item){
+                $item->units = $units_table->find('list')->where(['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
             }
-            $this->set('items_options',$item_options);
-        }
-        $warehouses = $this->StockMovements->Warehouses->find('list', ['limit' => 200]);
-        $this->set(compact('stockMovement', 'warehouses'));
+            
     }
+    $warehouses = $this->StockMovements->Warehouses->find('list', ['limit' => 200]);
+    $this->set(compact('stockMovement', 'warehouses'));
+}
+        
 
     /**
      * Delete method
@@ -187,21 +182,33 @@ class StockMovementsController extends AppController
       //  debug($itemid);die();
         $itemid = $this->request->query();
         
-        $items = TableRegistry::get('Items');
-        $item =$items->get($itemid['itemid']);
-        $units = TableRegistry::get('Units');
-        $units=$units->find('list',['id'=>[$item->purchase_unit]]);
-        //debug($item->purchase_unit.$item->sell_unit.$item->usage_unit); die();
+        $items_table = TableRegistry::get('Items');
+        $item = $items_table->get($itemid['itemid']);
+        $units_table = TableRegistry::get('Units');
         
-        //debug( $units);die();
+//         $units = $units_table->find('all',['id IN'=>[$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
+        $units = $units_table->find('list')->where(['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
+//         debug($units->count());
+//         foreach($units as $unit){
+//             debug($unit);
+//         }
+//         die();
+        // $units=$units->find('list',array('fields'=>array('id','units_field')))->distinct('units_field');;
+        //debug($item->purchase_unit.$item->sell_unit.$item->usage_unit); die();
+       // $units = $units->find('all', array(
+           // 'fields' => array('$item->purchase_unit', '$item->sell_unit'),
+          //  'group' => array('$item->purchase_unit')
+       // ));
+        
+        //debug($units);die();
         
         //this gives template error, google "cakephp function response without template"
         //     $this->set(compact('units'));
         //return json repsonse, something like json.encode();
-        $this->set([
-            'my_response' => $units,
-            '_serialize' => 'my_response',
-        ]);
+//         $this->set([
+//             'my_response' => $units,
+//             '_serialize' => 'my_response',
+//         ]);
         $this->RequestHandler->renderAs($this, 'json');
         
         $resultJ = json_encode($units);
