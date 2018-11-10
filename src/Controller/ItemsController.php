@@ -135,11 +135,17 @@ class ItemsController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
+            $this->Units = TableRegistry::get('Units');
+            $this->set('units',$this->Units->find('list'));
+            $this->Units = TableRegistry::get('ItemGroups');
+            $this->set('itemgroups',$this->Units->find('list'));
             $this->Flash->error(__('The item could not be saved. Please, try again.'));
         }
         else if($this->request->is('get')){
+            
 	    $this->Units = TableRegistry::get('Units');
-	    $this->set('units',$this->Units->find('list'));		
+	    $this->set('units',$this->Units->find('list'));
+	    
 	    $this->Units = TableRegistry::get('ItemGroups');
 	    $this->set('itemgroups',$this->Units->find('list'));
 	} 

@@ -48,7 +48,8 @@ class StockMovementsTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->hasMany('StockMovementItems', [
-            'foreignKey' => 'stock_movement_id'
+            'foreignKey' => 'stock_movement_id',
+            'dependency' => true
             
         ]);
     }

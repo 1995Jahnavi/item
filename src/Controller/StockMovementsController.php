@@ -140,9 +140,9 @@ class StockMovementsController extends AppController
         $data = $this->request->getData();
         
         $stockMovement = $this->StockMovements->newEntity();
-        //$stockMovement = $this->StockMovements->get($id, [
-          //  'contain' => ['StockMovementItems']
-        //]);
+        $stockMovement = $this->StockMovements->get($id, [
+            'contain' => ['StockMovementItems']
+        ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
            
             $stockMovement = $this->StockMovements->patchEntity($stockMovement, $this->request->getData());
@@ -157,8 +157,9 @@ class StockMovementsController extends AppController
                 $stockMovementiitem->unit_id= $data['units'][$i];
                 $stockMovementiitem->quantity= $data['qty'][$i];
                 $smi->save($stockMovementiitem);
-            } 
-            $i++;
+                
+            } $i++;
+            
             
                 $this->Flash->success(__('The stock movement has been saved.'));
 
@@ -261,5 +262,30 @@ class StockMovementsController extends AppController
   //    return json_encode($units);
       
     }
+    
+
+
+public function getitems()
+{
+    $this->RequestHandler->respondAs('json');
+    $this->response->type('application/json');
+    $this->autoRender = false ;
+    $array = $this->request->data();
+ // debug($array);die();
+    $id=$array['id'];
+    
+    $stockMovementItems_table = TableRegistry::get('StockMovementItems');
+   // $item = $stockMovements_table->get($itemid['itemid']);
+    
+    //$items =  $stockMovementItems_table->find('list')->where(['stock_movement_id'=>$id]);
+    $status = $stockMovementItems_table->deleteAll(['stock_movement_id'=>$id]);
+    
+    $this->RequestHandler->renderAs($this, 'json');
+    
+    $resultJ = json_encode($status);
+    $this->response->type('json');
+    $this->response->body($resultJ);
+    return $this->response;
+}
     
 }

@@ -45,7 +45,8 @@ class StockMovementItemsTable extends Table
         ]);
         $this->belongsTo('StockMovements', [
             'foreignKey' => 'stock_movement_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'dependent'=>true
         ]);
         $this->belongsTo('Units', [
             'foreignKey' => 'unit_id',
