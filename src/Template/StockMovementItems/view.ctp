@@ -38,9 +38,6 @@
             <th scope="row"><?= __('Quantity') ?></th>
             <td><?= $this->Number->format($stockMovementItem->quantity) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($stockMovementItem->id) ?></td>
-        </tr>
+       
     </table>
 </div>

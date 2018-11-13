@@ -41,7 +41,6 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Item') ?></th>
-                <th scope="col"><?= __('Stock Movement Id') ?></th>
                 <th scope="col"><?= __('Quantity') ?></th>
                 <th scope="col"><?= __('Unit') ?></th>
                 
@@ -50,7 +49,6 @@
             <?php foreach ($stockMovement->stock_movement_items as $stockMovementItems): ?>
             <tr>
                 <td><?= h($stockMovementItems->item_name) ?></td>
-                <td><?= h($stockMovementItems->stock_movement_id) ?></td>
                 <td><?= h($stockMovementItems->quantity) ?></td>
                 <td><?= h($stockMovementItems->unit_name) ?></td>
                

@@ -43,7 +43,7 @@
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $stockMovement->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $stockMovement->id], ['confirm' => __('Are you sure you want to delete # {0}?', $stockMovement->id)]) ?>
                 </td>
-                 <td><?= $stockMovement->posting_date->i18nFormat('YYY-MM-dd')?></td>
+                 <td><?= $stockMovement->posting_date->i18nFormat('dd-MM-YYYY')?></td>
                  
             </tr>
             <?php endforeach; ?>

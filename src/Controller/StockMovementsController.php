@@ -231,27 +231,7 @@ class StockMovementsController extends AppController
         
 //         $units = $units_table->find('all',['id IN'=>[$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
         $units = $units_table->find('list')->where(['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
-//         debug($units->count());
-//         foreach($units as $unit){
-//             debug($unit);
-//         }
-//         die();
-        // $units=$units->find('list',array('fields'=>array('id','units_field')))->distinct('units_field');;
-        //debug($item->purchase_unit.$item->sell_unit.$item->usage_unit); die();
-       // $units = $units->find('all', array(
-           // 'fields' => array('$item->purchase_unit', '$item->sell_unit'),
-          //  'group' => array('$item->purchase_unit')
-       // ));
-        
-        //debug($units);die();
-        
-        //this gives template error, google "cakephp function response without template"
-        //     $this->set(compact('units'));
-        //return json repsonse, something like json.encode();
-//         $this->set([
-//             'my_response' => $units,
-//             '_serialize' => 'my_response',
-//         ]);
+
         $this->RequestHandler->renderAs($this, 'json');
         
         $resultJ = json_encode($units);
@@ -271,18 +251,23 @@ public function getitems()
     $this->response->type('application/json');
     $this->autoRender = false ;
     $array = $this->request->data();
- // debug($array);die();
-    $id=$array['id'];
+//     debug($array);die();
+    //$id= $this->StockMovements->get($id);
+    $ids=$array['stockmovementid'];
+    //debug($arrays['id']);die();
     
+   
+    $this->set('ids', $ids);
     $stockMovementItems_table = TableRegistry::get('StockMovementItems');
-   // $item = $stockMovements_table->get($itemid['itemid']);
+    foreach ($ids as $id){
+        $smitem = $stockMovementItems_table->get($id);
+        $stockMovementItems_table->delete($smitem);
+    }
     
-    //$items =  $stockMovementItems_table->find('list')->where(['stock_movement_id'=>$id]);
-    $status = $stockMovementItems_table->deleteAll(['stock_movement_id'=>$id]);
     
     $this->RequestHandler->renderAs($this, 'json');
     
-    $resultJ = json_encode($status);
+    $resultJ = json_encode($smitem);
     $this->response->type('json');
     $this->response->body($resultJ);
     return $this->response;

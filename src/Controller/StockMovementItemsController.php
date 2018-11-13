@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * StockMovementItems Controller
@@ -113,4 +114,7 @@ class StockMovementItemsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    
+    
 }
