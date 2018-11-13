@@ -61,19 +61,21 @@ function change(){
 	    $("input[name='chk[]']:checked").each(function() {
               if ($(this).is(":checked")) {
                  var chkbox = $('#'+$(this).attr('id'));
+                 var isnum = /^\d+$/.test($(this).attr('id'));				
+ 				    if(!isnum)
+ 				    {
                  
-                 if($(this).attr('id') == "checkbox"){
                  	//console.log(chkbox.closest("tr"));
                  	chkbox.closest("tr").remove();
                  }else{
                  	checkids.push($(this).attr('id'));
                  }
+              }
                  
-                 
-              } 
+              }); 
           
                // console.log(checkid);
-	        });
+	      
 	       
 	       //return false;
 	if(checkids.length > 0){    

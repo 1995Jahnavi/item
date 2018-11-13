@@ -147,31 +147,33 @@ class StockMovementsController extends AppController
            
             $stockMovement = $this->StockMovements->patchEntity($stockMovement, $this->request->getData());
             if ($this->StockMovements->save($stockMovement)) {
-            $smi = TableRegistry::get('StockMovementItems');
+            $smi_table = TableRegistry::get('StockMovementItems');
             $i = 0;
             foreach($data['items'] as $item)
             {
-                $stockMovementiitem = $smi->newEntity();
-                $stockMovementiitem->stock_movement_id= $stockMovement->id;
-                $stockMovementiitem->item_id= $item;
-                $stockMovementiitem->unit_id= $data['units'][$i];
-                $stockMovementiitem->quantity= $data['qty'][$i];
-                $smi->save($stockMovementiitem);
-                
-            } $i++;
-            
-            
+                $smitem = $smi_table->find('all')->where(['item_id'=>$item, 'stock_movement_id'=>$id])->first();
+                if($smitem){
+                    $smitem->item_id= $item;
+                    $smitem->unit_id= $data['units'][$i];
+                    $smitem->quantity= $data['qty'][$i];
+                    $smi_table->save($smitem);                    
+                }else{
+                    $stockMovementiitem = $smi_table->newEntity();
+                    $stockMovementiitem->stock_movement_id= $stockMovement->id;
+                    $stockMovementiitem->item_id= $item;
+                    $stockMovementiitem->unit_id= $data['units'][$i];
+                    $stockMovementiitem->quantity= $data['qty'][$i];
+                    $smi_table->save($stockMovementiitem);
+                }
+                $i++;
+            }  
                 $this->Flash->success(__('The stock movement has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
-                
             }
             $units = TableRegistry::get('Units');
             $this->set('units',$units->find('list'));
-            
             $items = TableRegistry::get('Items');
             $this->set('items',$items->find('list'));
-            
             $this->Flash->error(__('The stock movement could not be saved. Please, try again.'));
         }
         else if($this->request->is('get')){
@@ -179,14 +181,10 @@ class StockMovementsController extends AppController
             $this->set('units',$units_table->find('list'));
             
             $items_table = TableRegistry::get('Items');
-            
-           // $items = $items_table->find('all');
-            
-           // $this->set('items',$items);
-           
-           $this->set('items',$items_table->find('list')); 
-            foreach($items_table as $item){
-                $item->units = $units_table->find('list')->where(['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
+            $this->set('items',$items_table->find('list')); 
+             
+             foreach($items_table as $item){
+                 $item->units = $units_table->find('list')->where(['id IN' => [$item->purchase_unit, $item->sell_unit, $item->usage_unit]]);
             }
             
     }

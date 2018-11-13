@@ -27,7 +27,10 @@
         <?php
             echo $this->Form->control('from_warehouse_id', ['options' => $warehouses]);
             echo $this->Form->control('to_warehouse_id', ['options' => $warehouses]);
-            echo $this->Form->control('posting_date');
+            $this->Form->templates(
+              ['dateWidget' => '{{day}}{{month}}{{year}}']
+            );
+            echo $this->Form->input('posting_date', ['type'=>'date']);            
         ?>
     </fieldset>
 
@@ -57,11 +60,9 @@
  <script>
  function myFunction() {
     var table = document.getElementById("stockMovementsTable");
-    var row = table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
+    var smCount = $('#stockMovementsTable tr').length;
     var row = table.insertRow().innerHTML ='<tr> \
-    <td><?php echo $this->Form->input('checkbox', array('type'=>'checkbox','name'=>'chk[]')); ?></td> \
+    <td><input type="checkbox" name="chk[]" id=chk'+(smCount+1)+'></td> \
     <td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items, 'default'=>'', 'name'=>'items[]','onchange'=>'change()')); ?></td> \
     <td><?php echo $this->Form->control('quantity',  array('name'=>'qty[]'));; ?></td> \
     <td><?php echo $this->Form->control('unit_id',array('type'=>'select','options'=>$units,'default'=>'', 'name'=>'units[]')); ?></td> \
