@@ -46,6 +46,9 @@ class ItemGroupsController extends AppController
         $units = TableRegistry::get('Units');
         $item->sell_unit_name=$units->get($item->sell_unit)->unit_name;
         
+        $units = TableRegistry::get('Units');
+        $item->usage_unit_name=$units->get($item->usage_unit)->unit_name;
+        
        // foreach ($stockMovement->stock_movement_items as $stockMovementItems){
             //$items = TableRegistry::get('Items');
             // $stockMovementItems->item_name=$items->get($stockMovementItems->id)->item_name;

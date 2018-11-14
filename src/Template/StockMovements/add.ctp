@@ -28,72 +28,67 @@
         ?>
     </fieldset>
 
-	<table id="stockMovementsTable">
-	<tr>
-	<td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items, 'name'=>'items[]','onchange'=>'change()')); ?></td>
-	<td><?php echo $this->Form->control('quantity', array('name'=>'qty[]')); ?></td>		
-	<td><?php echo $this->Form->control('unit_id',array('type'=>'select','options'=>$units, 'name'=>'units[]')); ?></td>
-	</tr>
-	
-	<input type= "button" onclick= "addFunction()" value= "Add row" > 
-	<input type="button" id="delsmbutton" value="Delete" onclick="deleteRow(this)">
-	</table>
-	
+    <table id="stockMovementsTable">
+    <tr>
+    <td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items, 'name'=>'items[]','onchange'=>'change()')); ?></td>
+    <td><?php echo $this->Form->control('quantity', array('name'=>'qty[]')); ?></td>        
+    <td><?php echo $this->Form->control('unit_id',array('type'=>'select','options'=>$units, 'name'=>'units[]')); ?></td>
+    </tr>
+    
+    <input type= "button" onclick= "addFunction()" value= "Add row" > 
+    <input type="button" id="delsmbutton" value="Delete" onclick="deleteRow(this)">
+    </table>
+    
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
    <script>
-   
-   
- 	function addFunction() {
+    function addFunction() {
     var table = document.getElementById("stockMovementsTable");
-    var row = table.insertRow().innerHTML = '<tr> \
-	<td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items, 'name'=>'items[]','default'=>'','onchange'=>'change()')); ?></td> \
-	<td><?php echo $this->Form->control('quantity', array('name'=>'qty[]')); ?></td> \
-	<td><?php echo $this->Form->control('unit_id',array('type'=>'select','options'=>$units,'name'=>'units[]')); ?></td> \
-	</tr>';
-	}
-	
-	function deleteRow(row)
+    var row = table.insertRow().innerHTML ='<tr> \
+    <td><?php echo $this->Form->control('item_id',array('type'=>'select','options'=>$items, 'name'=>'items[]','default'=>'','onchange'=>'change()')); ?></td> \
+    <td><?php echo $this->Form->control('quantity', array('name'=>'qty[]')); ?></td> \
+    <td><?php echo $this->Form->control('unit_id',array('type'=>'select','options'=>$units,'name'=>'units[]','id'=>'unit'+1)); ?></td> \
+    </tr>';
+    }
+    
+    function deleteRow(row)
 {
     var i=row.parentNode.parentNode.rowIndex;
     document.getElementById("stockMovementsTable").deleteRow(i);
 }
-
       function change(){
             var item_select_box = document.getElementById("item-id");
             var unit_select_box=$('#unit-id');                       
-          	unit_select_box.empty();
-          
-	
-	$.ajax({
-		type: 'get',
-		url: '/stock-movements/getunits',
-		  data: { 
-		    itemid: item_select_box.value
-		  },
-		   dataType: 'json',
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		},
-		success: function(response) 
-			 {
-			if (response.error) {
-				alert(response.error);
-				console.log(response.error);
-			}
- 			if (response) {			
-				for (var k in response) {
-	              $("#unit-id").append("<option value='" +k+ "'>" +response[k]+ "</option>");             
-	             
-	            }
-			}
-			}
-			
-	});	
-
+            unit_select_box.empty();
+         
+    $.ajax({
+        type: 'get',
+        url: '/stock-movements/getunits',
+          data: { 
+            itemid: item_select_box.value
+          },
+           dataType: 'json',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        },
+        success: function(response) 
+             {
+            if (response.error) {
+                alert(response.error);
+                console.log(response.error);
+            }
+            if (response) { 
+                for (var k in response) {
+                  $("unit-id"+1).append("<option value='" +k+ "'>" +response[k]+ "</option>"); 
+                 
+                }
+            }
+            }
+            
+    }); 
    }
   
   </script>

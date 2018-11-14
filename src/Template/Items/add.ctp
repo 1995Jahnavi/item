@@ -33,8 +33,6 @@
 
 <script>
 function validateForm() {
-   
-    var item_name = document.getElementById('item-name');
     var sell_unit_qty = document.getElementById('sell-unit-qty');
     var usage_unit_qty = document.getElementById('usage-unit-qty');
     

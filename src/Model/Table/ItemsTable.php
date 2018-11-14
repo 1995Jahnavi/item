@@ -107,14 +107,13 @@ class ItemsTable extends Table
       {
 		   
 	      $items_table= TableRegistry::get('Items');
-		 		 
-		  $item=$items_table->find('list')->where(['item_name' =>$entity->item_name])->count();
+	      $item=$items_table->find('all')->where(['item_name' =>$entity->item_name, 'id !=' =>$entity->id])->count();
 		  if($item > 0)
 		  {
 		  	return false;
 		  } 
 		   
-		   //debug($event); debug($entity); debug($options);die();
+		   //debug($entity);die();
 		   
     }    
 }
