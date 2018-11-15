@@ -58,7 +58,7 @@ class ItemsController extends AppController
             'contain' => []
         ]);
       //  debug($item);die();
-         $items = $this->paginate($this->Items);
+         //$items = $this->paginate($this->Items);
          // $units = $this->paginate($this->Items);
 
 	
@@ -89,7 +89,7 @@ class ItemsController extends AppController
      */
     public function add()
     {
-    	
+       
         $item = $this->Items->newEntity();
         if ($this->request->is('post')) {
             $item = $this->Items->patchEntity($item, $this->request->getData());
@@ -103,7 +103,7 @@ class ItemsController extends AppController
             $this->Units = TableRegistry::get('Units');
 	        $this->set('units',$this->Units->find('list'));		
 	        $this->Units = TableRegistry::get('ItemGroups');
-	        $this->set('itemgroups',$this->Units->find('list'));  
+	        $this->set('itemgroups',$this->Units->find('list'));
 	        $this->Flash->error(__('The item could not be saved. Please, try again.'));
         }  else if($this->request->is('get')){
 //        	debug('get');die();

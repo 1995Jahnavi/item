@@ -64,5 +64,17 @@ class ItemGroupsTable extends Table
         return $validator;
     }
    
-    
+    public function beforeSave($event, $entity, $options)
+    {
+        
+        $item_group_table= TableRegistry::get('ItemGroups');
+        $item_group=$item_group_table->find('list')->where(['name' =>$entity->name])->count();
+        if($item_group > 0)
+        {
+            return false;
+        }
+        
+        //debug($entity);die();
+        
+    } 
 }

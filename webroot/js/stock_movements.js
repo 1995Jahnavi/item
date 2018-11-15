@@ -56,7 +56,7 @@ function change(){
           //console.log(checkboxes);
           
 	      var checkids = new Array();
-	      var checkdelete = new Array();
+	     // var checkdelete = new Array();
 	     
 	    $("input[name='chk[]']:checked").each(function() {
               if ($(this).is(":checked")) {

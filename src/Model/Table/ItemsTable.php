@@ -103,17 +103,18 @@ class ItemsTable extends Table
         return $rules;
     }
     
+  
     public function beforeSave($event, $entity, $options)
-      {
-		   
-	      $items_table= TableRegistry::get('Items');
-	      $item=$items_table->find('all')->where(['item_name' =>$entity->item_name, 'id !=' =>$entity->id])->count();
-		  if($item > 0)
-		  {
-		  	return false;
-		  } 
-		   
-		   //debug($entity);die();
-		   
-    }    
+    {
+        
+        $items_table= TableRegistry::get('Items');
+        $itemadd=$items_table->find('all')->where(['item_name' =>$entity->item_name,'id !=' =>$entity->id])->count();
+        
+        if($itemadd > 0)
+        {
+            return false;
+        }
+        //debug($entity);die();
+        
+    } 
 }
