@@ -47,10 +47,10 @@
    <script>
     function add_row() {
     var table = document.getElementById("stockMovementsTable");
-    var itemid = $('#stockMovementsTable tr').length;
+    var new_item_id = $('#stockMovementsTable tr').length;
     var newid = $('#stockMovementsTable tr').length;
     var row = table.insertRow().innerHTML ='<tr> \
-    <td><select name ="items[]"  onchange="change(this)" id=item'+(itemid)+'><option value="4">coco cola5</option><option value="15">pepsi</option></select></select></td> \
+    <td><select name ="items[]"  onchange="change(this)" id=item'+(new_item_id)+'><option value="4">coco cola5</option><option value="15">pepsi</option></select></select></td> \
     <td><?php echo $this->Form->control('quantity', array('name'=>'qty[]')); ?></td> \
     <td><select name ="units[]" id=unit'+(newid)+'><option value="1">carton1</option><option value="2">Bottle</option><option value="3">Box</option><option value="4">ml</option></select></td> \
     </tr>';
@@ -66,8 +66,8 @@
       function change(element){
             var item_select_box = document.getElementById("item-id");
             var unit_select_box=$('#unit-id'); 
-            var new_unit_box=$('#newunit-id');
-            var item_select = document.getElementById("item-id");
+            var new_unit_box=$('#newid');
+            var item_select = document.getElementById("new_item_id");
             
                               
             unit_select_box.empty();
@@ -101,7 +101,7 @@
                     var id = response[i]['id'];
                     var name = response[i]['name'];
                     
-                    $('#newunit-id').append("<option value='"+id+"'>"+name+"</option>");
+                    $('#newid').append("<option value='"+id+"'>"+name+"</option>");
 
                 }
                
